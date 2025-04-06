@@ -1,0 +1,29 @@
+Kadane's Algorithm
+
+
+Difficulty: MediumAccuracy: 36.28%Submissions: 1.1MPoints: 4Average Time: 20m
+
+
+Given an integer array arr[]. You need to find the maximum sum of a subarray.
+
+
+
+
+
+
+
+
+
+
+class Solution {
+  public:
+    int maxSubarraySum(vector<int> &arr) {
+        // Your code here
+        int maxSum = INT_MIN, currentSum = 0;
+        for(int num : arr){
+            currentSum = max(num, currentSum + num);
+            maxSum = max(maxSum, currentSum);
+        }
+        return maxSum;
+    }
+};
