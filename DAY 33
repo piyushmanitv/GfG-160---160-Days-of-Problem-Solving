@@ -1,0 +1,50 @@
+Aggressive Cows
+
+
+Difficulty: MediumAccuracy: 59.57%Submissions: 123K+Points: 4Average Time: 30m
+
+
+
+You are given an array with unique elements of stalls[], which denote the position of a stall.
+You are also given an integer k which denotes the number of aggressive cows. Your task is to 
+assign stalls to k cows such that the minimum distance between any two of them is the maximum possible.
+
+
+
+
+
+
+
+
+
+class Solution {
+  public:
+    bool canPlace(vector<int> &stalls, int dist, int k){
+        int count = 1, last = stalls[0];
+        for(int i = 1; i < stalls.size(); i++){
+            if(stalls[i] - last >= dist){
+                count++;
+                last = stalls[i];
+            }
+        }
+        return count >= k;
+    }
+    int aggressiveCows(vector<int> &stalls, int k) {
+
+        // Write your code here
+        sort(stalls.begin(), stalls.end());
+        int low = 1, high = stalls.back() - stalls.front(), ans = 0;
+        
+        while(low <= high){
+            int mid = (low + high)/2;
+            if(canPlace(stalls, mid, k)){
+                ans = mid;
+                low = mid + 1;
+            }
+            else{
+                high = mid - 1;
+            }
+        }
+        return ans;
+    }
+};
