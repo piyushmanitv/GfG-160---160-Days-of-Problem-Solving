@@ -1,0 +1,29 @@
+Count pairs with given sum
+Difficulty: EasyAccuracy: 50.11%Submissions: 44K+Points: 2Average Time: 15m
+Given an array arr[] and an integer target. You have to find numbers of pairs in array arr[] which sums up to given target.
+
+
+
+
+
+
+
+
+
+
+
+
+
+class Solution {
+  public:
+    int countPairs(vector<int> &arr, int target) {
+        // Code here
+        unordered_map<int, int> freq;
+        int count= 0;
+        for(int num : arr){
+            count += freq[target - num];
+            freq[num]++;
+        }
+        return count;
+    }
+};
