@@ -1,0 +1,37 @@
+Longest Consecutive Subsequence
+Difficulty: MediumAccuracy: 33.0%Submissions: 353K+Points: 4Average Time: 25m
+Given an array arr[] of non-negative integers. Find the length of the longest sub-sequence such that elements in the subsequence are consecutive integers, the consecutive numbers can be in any order.
+
+
+
+
+
+
+
+
+
+#include <unordered_set>
+#include <vector>
+using namespace std;
+
+class Solution {
+  public:
+    int longestConsecutive(vector<int>& arr) {
+        unordered_set<int> s(arr.begin(), arr.end());
+        int longest = 0;
+
+        for (int num : s) {
+            if (s.find(num - 1) == s.end()) { 
+                int current = num;
+                int count = 1;
+                while (s.find(current + 1) != s.end()) {
+                    current++;
+                    count++;
+                }
+                longest = max(longest, count);
+            }
+        }
+
+        return longest;
+    }
+};
