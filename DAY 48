@@ -1,0 +1,29 @@
+Print Anagrams Together
+Difficulty: MediumAccuracy: 65.78%Submissions: 96K+Points: 4Average Time: 30m
+Given an array of strings, return all groups of strings that are anagrams. The strings in each group must be arranged in the order of their appearance in the original array. Refer to the sample case for clarification.
+
+
+
+
+
+
+
+class Solution {
+  public:
+    vector<vector<string>> anagrams(vector<string>& arr) {
+        unordered_map<string, vector<string>> mp;
+        vector<vector<string>> result;
+
+        for (const string& s : arr) {
+            string key = s;
+            sort(key.begin(), key.end());
+            mp[key].push_back(s);
+        }
+
+        for (auto it = mp.begin(); it != mp.end(); ++it) {
+            result.push_back(it->second);
+        }
+
+        return result;
+    }
+};
