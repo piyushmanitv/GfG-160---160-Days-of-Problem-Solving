@@ -1,0 +1,40 @@
+Implement Pow
+Difficulty: MediumAccuracy: 52.79%Submissions: 33K+Points: 4
+Implement the function power(b, e), which calculates b raised to the power of e (i.e. be).
+
+
+
+
+
+
+
+
+
+
+
+
+// User function Template for C++
+class Solution {
+  public:
+    double power(double b, int e) {
+        // code here
+        if(e == 0)
+            return 1.0;
+            
+        long long exp = e;
+        if(exp < 0){
+            b = 1.0 / b;
+            exp = -exp;
+        }
+        
+        double result = 1.0;
+        while(exp > 0){
+            if(exp % 2 == 1)
+                result *= b;
+            b *= b;
+            exp /= 2;
+        }
+        
+        return result;
+    }
+};
