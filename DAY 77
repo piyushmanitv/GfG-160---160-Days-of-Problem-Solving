@@ -1,0 +1,61 @@
+N-Queen Problem
+Difficulty: HardAccuracy: 35.43%Submissions: 107K+Points: 8Average Time: 25m
+The n-queens puzzle is the problem of placing n queens on a (n × n) chessboard such that no two queens can attack each other. Note that two queens attack each other if they are placed on the same row, the same column, or the same diagonal.
+
+Given an integer n, find all distinct solutions to the n-queens puzzle.
+You can return your answer in any order but each solution should represent a distinct board configuration of the queen placements, where the solutions are represented as permutations of [1, 2, 3, ..., n]. In this representation, the number in the ith position denotes the row in which the queen is placed in the ith column.
+For eg. below figure represents a chessboard [3 1 4 2].
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// User function Template for C++
+
+class Solution {
+  public:
+    vector<vector<int>> ans;
+    
+    void solve(int col, int n, vector<int>& perm, vector<bool>& rows, 
+    vector<bool>& diag1, vector<bool>& diag2){
+        if(col == n){
+            ans.push_back(perm);
+            return;
+        }
+        
+        for(int row = 1; row <= n; ++row){
+            int d1 = row - col + n;
+            int d2 = row + col;
+            
+            if(!rows[row] && !diag1[d1] && !diag2[d2]){
+                perm[col] = row;
+                rows[row] = diag1[d1] = diag2[d2] = true;
+                
+                solve(col + 1, n, perm, rows, diag1, diag2);
+                
+                rows[row] = diag1[d1] = diag2[d2] = false;
+            }
+        }
+    }
+    
+    vector<vector<int>> nQueen(int n) {
+        // code here
+        ans.clear();
+        vector<int> perm(n);
+        vector<bool> rows(n + 1, false);
+        vector<bool> diag1(2 * n + 1, false);
+        vector<bool> diag2(2 * n + 1, false);
+        
+        solve(0, n, perm, rows, diag1, diag2);
+        return ans;
+    }
+};
