@@ -1,0 +1,49 @@
+Word Search
+Difficulty: MediumAccuracy: 32.69%Submissions: 77K+Points: 4Average Time: 20m
+You are given a two-dimensional mat[][] of size n*m containing English alphabets and a string word. Check if the word exists on the mat. 
+The word can be constructed by using letters from adjacent cells, either horizontally or vertically. The same cell cannot be used more than once.
+
+
+
+
+
+
+
+
+
+
+class Solution {
+    int n, m;
+    bool dfs(vector<vector<char>>& mat, vector<vector<bool>>& visited, string& word, int i, int j, int k){
+        if(k == word.size()) return true;
+        if(i < 0 || j < 0 || i >= n || j >= m || mat[i][j] != word[k] || visited[i][j]) return false;
+            
+            visited[i][j] = true;
+            
+            bool found = dfs(mat, visited, word, i+1, j, k+1) ||
+                         dfs(mat, visited, word, i-1, j, k+1) ||
+                         dfs(mat, visited, word, i, j+1, k+1) ||
+                         dfs(mat, visited, word, i, j-1, k+1);
+                         
+            visited[i][j] = false;
+            return found;
+    }
+    
+    
+  public:
+    bool isWordExist(vector<vector<char>>& mat, string& word) {
+        // Code here
+        n = mat.size();
+        m = mat[0].size();
+        for(int i = 0; i < n; ++i){
+            for(int j = 0; j < m; ++j){
+                if(mat[i][j] == word[0]){
+                    vector<vector<bool>> visited(n, vector<bool>(m, false));
+                 if(dfs(mat, visited, word, i, j, 0))
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+};
