@@ -1,0 +1,56 @@
+Inorder Traversal
+Difficulty: EasyAccuracy: 67.15%Submissions: 189K+Points: 2Average Time: 15m
+Given a Binary Tree, your task is to return its In-Order Traversal.
+
+An inorder traversal first visits the left child (including its entire subtree), then visits the node, and finally visits the right child (including its entire subtree).
+
+Follow Up: Try solving this with O(1) auxiliary space.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+// Tree Node
+class Node {
+  public:
+    int data;
+    Node* left;
+    Node* right;
+
+    // Constructor to initialize a new node
+    Node(int val) {
+        data = val;
+        left = NULL;
+        right = NULL;
+    }
+};
+*/
+
+class Solution {
+  public:
+    // Function to return a list containing the inorder traversal of the tree.
+    void inorder(Node* root, vector<int>& res){
+        if(!root) return;
+        inorder(root->left, res);
+        res.push_back(root->data);
+        inorder(root->right, res);
+    }
+    
+    
+    vector<int> inOrder(Node* root) {
+        // Your code here
+        vector<int> res;
+        inorder(root, res);
+        return res;
+    }
+};
