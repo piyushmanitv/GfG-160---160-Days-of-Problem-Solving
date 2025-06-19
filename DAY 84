@@ -1,0 +1,67 @@
+Construct Tree from Inorder & Preorder
+Difficulty: MediumAccuracy: 34.59%Submissions: 201K+Points: 4Average Time: 20m
+Given two arrays representing the inorder and preorder traversals of a binary tree, 
+construct the tree and return the root node of the constructed tree.
+
+Note: The output is written in postorder traversal.
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Class that contains the logic to build the binary tree
+/*
+Definition of the Node class
+class Node {
+public:
+    int data;
+    Node *left;
+    Node *right;
+
+    Node(int x) {
+        data = x;
+        left = NULL;
+        right = NULL;
+    }
+};
+*/
+class Solution {
+  public:
+    int preIdx = 0;
+    // Function to build the tree from given inorder and preorder traversals
+    Node *buildTreeHelper(vector<int>& preorder, vector<int>& inorder, int inL, int inR, unordered_map<int, int>& idxMap) {
+        // code here
+        if(inL > inR) return nullptr;
+        
+        int rootVal = preorder[preIdx++];
+        Node* root = new Node(rootVal);
+        
+        int mid = idxMap[rootVal];
+        root->left = buildTreeHelper(preorder, inorder, inL, mid - 1, idxMap);
+        root->right = buildTreeHelper(preorder, inorder, mid + 1, inR, idxMap);
+        return root;
+    }
+    
+    Node* buildTree(vector<int>& inorder, vector<int>& preorder){
+        preIdx = 0;
+        unordered_map<int, int> idxMap;
+        for(int i = 0; i < inorder.size(); ++i)
+            idxMap[inorder[i]] = i;
+        return buildTreeHelper(preorder, inorder, 0, inorder.size() - 1, idxMap);
+    }
+    
+    void postorder(Node* root, vector<int>& res){
+        if(!root) return;
+        postorder(root->left, res);
+        postorder(root->right, res);
+        res.push_back(root->data);
+    }
+};
