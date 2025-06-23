@@ -1,0 +1,55 @@
+K Sum Paths
+Difficulty: MediumAccuracy: 44.73%Submissions: 127K+Points: 4
+Given a binary tree and an integer k, determine the number of downward-only paths where the sum of the node 
+values in the path equals k.
+A path can start and end at any node within the tree but must always move downward (from parent to child).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+struct Node {
+    int data;
+    Node *left;
+    Node *right;
+
+    Node(int val) {
+        data = val;
+        left = right = NULL;
+    }
+};
+*/
+class Solution {
+    void dfs(Node* root, int k, int currSum, unordered_map<int, int>& prefixSum, int& count){
+        if(!root) return;
+        
+        currSum += root->data;
+        count += prefixSum[currSum - k];
+        
+        prefixSum[currSum]++;
+        dfs(root->left, k, currSum, prefixSum, count);
+        dfs(root->right, k, currSum, prefixSum, count);
+        prefixSum[currSum]--;
+    }
+    
+    
+  public:
+    int sumK(Node *root, int k) {
+        // code here
+        unordered_map<int, int> prefixSum;
+        prefixSum[0] = 1;
+        int count = 0;
+        dfs(root, k, 0, prefixSum, count);
+        return count;
+    }
+};
