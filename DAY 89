@@ -1,0 +1,33 @@
+Check for BST
+Difficulty: EasyAccuracy: 25.37%Submissions: 576K+Points: 2Average Time: 30m
+Given the root of a binary tree. Check whether it is a BST or not.
+Note: We are considering that BSTs can not contain duplicate Nodes.
+A BST is defined as follows:
+
+The left subtree of a node contains only nodes with keys less than the node's key.
+The right subtree of a node contains only nodes with keys greater than the node's key.
+Both the left and right subtrees must also be binary search trees
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class Solution {
+  public:
+    // Function to check whether a Binary Tree is BST or not.
+    bool isBST(Node* root, long minVal = LONG_MIN, long maxVal = LONG_MAX) {
+        // Your code here
+        if(!root) return true;
+        if(root->data <= minVal || root->data >= maxVal) return false;
+        return isBST(root->left, minVal, root->data) && isBST(root->right, root->data, maxVal);
+    }
+};
