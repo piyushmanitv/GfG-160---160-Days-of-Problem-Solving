@@ -1,0 +1,52 @@
+Pair Sum in BST
+Difficulty: MediumAccuracy: 44.02%Submissions: 81K+Points: 4Average Time: 40m
+Given a Binary Search Tree(BST) and a target. Check whether there's a pair of Nodes in the BST with value summing up to the target. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+Node is as follows
+class Node {
+    int data;
+    Node *left;
+    Node *right;
+
+    Node(int val) {
+        data = val;
+        left = right = NULL;
+    }
+};
+*/
+
+class Solution {
+    bool find(Node* root, int target, unordered_set<int>& seen){
+        if(!root) return false;
+        if(find(root->left, target, seen)) return true;
+        if(seen.count(target - root->data)) return true;
+        
+            seen.insert(root->data);
+            
+            return find(root->right, target, seen);
+    }
+    
+    
+  public:
+    bool findTarget(Node *root, int target) {
+        // your code here.
+        unordered_set<int> seen;
+        return find(root, target, seen);
+    }
+};
