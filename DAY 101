@@ -1,0 +1,46 @@
+Next Greater Element
+Difficulty: MediumAccuracy: 32.95%Submissions: 460K+Points: 4Average Time: 20m
+Given an array arr[ ] of integers, the task is to find the next greater element for each element of the array 
+in order of their appearance in the array. Next greater element of an element in the array is the nearest 
+element on the right which is greater than the current element.
+If there does not exist next greater of current element, then next greater element for current 
+element is -1. For example, next greater of the last element is always -1.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class Solution {
+  public:
+    vector<int> nextLargerElement(vector<int>& arr) {
+        // code here
+        int n = arr.size();
+        vector<int> res(n, -1);
+        stack<int> st;
+        
+    for(int i = n - 1; i >= 0; --i){
+        while(!st.empty() && arr[st.top()] <= arr[i]){
+            st.pop();
+        }
+        
+        if(!st.empty()){
+            res[i] = arr[st.top()];
+        }
+        
+        st.push(i);
+    }
+    
+    return res;
+    }
+};
