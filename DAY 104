@@ -1,0 +1,48 @@
+Max of min for every window size
+Difficulty: HardAccuracy: 42.9%Submissions: 68K+Points: 8Average Time: 45m
+Given an array of integers arr[], the task is to find the maximum of the minimum values for every possible window size in the array, where the window size ranges from 1 to arr.size().
+
+More formally, for each window size k, determine the smallest element in all windows of size k, and then find the largest value among these minimums where 1<=k<=arr.size().
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class Solution {
+public:
+int f(vector<vector<int>> &events,int k,int i,vector<vector<int>> &dp){
+    if(i>=events.size() || k<=0) return 0;
+    if(dp[i][k]!=-1) return dp[i][k];
+    int start=events[i][0];
+    int end=events[i][1];
+    int value=events[i][2];
+
+    int not_take=f(events,k,i+1,dp);
+    int j=i+1;
+    for(j=i+1;j<events.size();j++){
+        if(events[j][0]>end){
+            break;
+        }
+    }
+    int take=value+f(events,k-1,j,dp);
+    return dp[i][k]=max(not_take,take);
+}
+    int maxValue(vector<vector<int>>& events, int k) {
+        sort(events.begin(),events.end());
+        int n=events.size();
+        vector<vector<int>> dp(n,vector<int> (k+1,-1));
+        return f(events,k,0,dp);
+        
+        
+    }
+};
